@@ -1,0 +1,530 @@
+@use './abstracts/variables'as *;
+@use './abstracts/mixins'as *;
+@use './base/reset';
+@use './base/fonts';
+
+body {
+  font-family: $font-lato;
+  background-color: $color-black;
+
+  * {
+    color: $color-white;
+    text-transform: lowercase;
+  }
+
+  input {
+    border-bottom: 1px solid $color-white;
+
+    &::placeholder {
+      color: $color-white;
+    }
+  }
+}
+
+* {
+  font-family: $font-lato;
+}
+
+main {
+  min-height: 100dvh;
+}
+
+.main-padding {
+  padding-left: 50px;
+  padding-right: 50px;
+
+  @include media-down(l) {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  @include media-down(m) {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+.btn {
+  min-width: 150px;
+  height: 40px;
+  cursor: pointer;
+  overflow: hidden;
+
+  span {
+    width: 100%;
+    display: block;
+    padding: 5px 10px;
+    cursor: pointer;
+    position: absolute;
+    line-height: 24px;
+    height: 100%;
+
+
+    &:first-of-type {
+      transform: translateZ(30px);
+    }
+
+    &:last-of-type {
+      transform: rotateX(90deg) translateZ(30px);
+    }
+  }
+
+  &:hover {
+    .btn-inside {
+      transform: rotateX(-90deg);
+    }
+  }
+
+  &-inside {
+    transition: .25s;
+    transform-style: preserve-3d;
+    height: 100%;
+    position: relative;
+  }
+
+  &.primary-btn {
+    border: 3px solid $color-dark-orange;
+
+    span {
+      &:first-of-type {
+        background-color: $color-dark-orange;
+        color: $color-green;
+      }
+
+      &:last-of-type {
+        background-color: transparent;
+        color: $color-dark-orange;
+      }
+    }
+  }
+
+  &.secondary-btn {
+    border: 3px solid $color-light-orange;
+
+    span {
+      &:first-of-type {
+        color: $color-light-orange;
+      }
+
+      &:last-of-type {
+        color: $color-green;
+        background-color: $color-light-orange;
+      }
+    }
+  }
+}
+
+.white-theme {
+  background-color: $color-white;
+
+  * {
+    color: $color-black;
+  }
+
+  input {
+    border-color: $color-black;
+
+    &::placeholder {
+      color: $color-black;
+    }
+  }
+
+  .footer {
+    border-color: $color-black;
+  }
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.header {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  align-items: center;
+
+  .logo {
+    img {
+      height: 50px;
+      width: auto;
+    }
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 30px;
+    margin: 0 auto;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 10px;
+
+    .mode {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+
+      .theme-btn {
+        width: 55px;
+        border-radius: 30px;
+        height: 30px;
+        background-color: $color-light-orange;
+        padding: 3px;
+        cursor: pointer;
+
+        span {
+          display: block;
+          border-radius: 50%;
+          height: 24px;
+          width: 24px;
+        }
+
+        .dark-btn {
+          transform: translateX(100%);
+          transition: all .25s ease-in-out;
+          background-color: $color-black;
+        }
+
+        .light-btn {
+          background-color: $color-white;
+          transform: translateX(0);
+          transition: all .25s ease-in-out;
+        }
+      }
+    }
+
+    .auth-buttons {
+      display: flex;
+      gap: 10px;
+    }
+  }
+
+  * {
+    font-size: 18px;
+  }
+}
+
+.modal-overlay {
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 30px;
+
+    input {
+      padding: 5px 10px;
+      max-width: 200px;
+      width: 100%;
+
+      &::placeholder {
+        opacity: .5;
+      }
+    }
+  }
+
+  .btns-container {
+    display: flex;
+    gap: 30px;
+  }
+
+}
+
+main {
+  .hero {
+    &-content {
+      display: flex;
+      gap: 30px;
+      align-items: flex-end;
+      position: relative;
+
+      .images-container {
+        display: flex;
+        gap: 30px;
+        flex-grow: 1;
+
+        img {
+          background-color: $color-black;
+          width: 50%;
+          height: auto;
+        }
+      }
+
+      .info-container {
+        max-width: 30%;
+        width: 100%;
+
+        h2 {
+          margin-bottom: 15px;
+        }
+
+        ul {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+      }
+
+      .title-container {
+        position: absolute;
+        background-color: $color-white;
+        padding: 10px 30px;
+        right: 10%;
+        min-width: 30%;
+        top: 20%;
+        color: $color-black;
+
+        h1 {
+          color: $color-black;
+          font-weight: 700;
+          font-size: 36px;
+          margin-bottom: 15px;
+        }
+
+        input {
+          color: $color-black;
+          box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+          padding: 5px 10px;
+          width: 100%;
+
+          &::placeholder {
+            color: $color-black;
+            opacity: .7;
+          }
+        }
+      }
+
+      .search-wrapper {
+        position: relative;
+
+        .suggestions {
+          padding: 10px;
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+
+
+          li {
+            cursor: pointer;
+          }
+
+          span {
+            color: $color-black;
+            font-weight: 700;
+            padding-bottom: 5px;
+            border-bottom: 1px solid $color-black;
+            margin-bottom: 5px;
+            display: block;
+          }
+
+          .job-info {
+            display: flex;
+
+            gap: 10px;
+
+            p {
+              color: $color-black;
+            }
+
+            .job-location {
+              &:before {
+                content: "|";
+                padding-right: 5px;
+              }
+            }
+          }
+        }
+
+        .popup {
+          background-color: $color-white;
+          position: absolute;
+          top: 40px;
+          left: -30px;
+          height: calc(100% - 40px);
+          width: calc(100% + 60px);
+          padding: 10px 30px;
+          overflow-y: auto;
+          min-height: 150px;
+
+          &-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+          }
+
+          h2 {
+            color: $color-black;
+            margin-bottom: 5px;
+          }
+
+          span {
+            color: $color-black;
+            display: flex;
+            gap: 10px;
+            font-size: 20px;
+          }
+
+          p {
+            color: $color-black;
+            font-size: 20px;
+          }
+
+          .btn {
+            width: fit-content;
+
+            span {
+              justify-content: center;
+            }
+          }
+
+          .popup-date {
+            opacity: .5;
+            font-size: 18px;
+
+            p {
+              font-size: 18px;
+            }
+          }
+        }
+      }
+
+    }
+  }
+}
+
+.footer {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  border-top: 2px solid $color-white;
+
+
+  &-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+
+    .footer-logo,
+    .footer-nav,
+    .footer-socials {
+      width: 30%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      h3 {
+        margin-bottom: 5px;
+        font-weight: 700;
+      }
+
+
+    }
+
+    .footer-socials {
+      a {
+        text-transform: none;
+      }
+    }
+  }
+
+  &-bottom {
+    p {
+      font-size: 14px;
+      margin-top: 30px;
+    }
+  }
+}
+
+.prev,
+.next {
+  img {
+    filter: brightness(0) saturate(100%) invert(93%) sepia(69%) saturate(1271%) hue-rotate(304deg) brightness(102%) contrast(101%);
+  }
+}
+
+.prev {
+  img {
+    transform: rotate(180deg);
+  }
+}
+
+.job-section {
+  margin-top: 60px;
+  margin-bottom: 30px;
+  transition: all .3s ease;
+
+  .btn {
+    margin: 15px auto 30px;
+    width: fit-content;
+  }
+
+  .slider {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+
+    &-track {
+      display: flex;
+      gap: 30px;
+      justify-content: space-between;
+    }
+
+    .job-card {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 10px;
+      padding-right: 30px;
+      border-right: 1px solid $color-light-orange;
+
+      h3 {
+        width: 100%;
+        font-size: 18px;
+        font-weight: 700;
+        border-bottom: 1px solid $color-light-orange;
+        padding-bottom: 10px;
+        margin-bottom: 5px;
+      }
+
+      .salary {
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .company {
+        padding-right: 10px;
+
+        &:after {
+          content: "|";
+          padding-left: 10px;
+          font-weight: 700;
+          color: $color-dark-orange;
+        }
+      }
+
+      .btn {
+        margin-top: 30px;
+      }
+    }
+  }
+
+  &.active-section {
+    transform: scale(1);
+    border-top: 2px solid $color-dark-orange;
+    order: 1;
+
+  }
+}
+
+.job-sections-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  .show-btn {
+    span {
+      color: $color-dark-orange;
+    }
+  }
+}
