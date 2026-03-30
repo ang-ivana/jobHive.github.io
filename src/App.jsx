@@ -6,12 +6,16 @@ import JobsContainer from "./components/JobsContainer";
 import { useAuth } from './hooks/useAuth';
 import Tracker from './components/Tracker';
 import { useEffect, useState, useRef } from 'react'
+import AuthForm from './components/AuthForm';
 function App() {
-  const { user, login, singup, logout, applyToJob } = useAuth();
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [authMode, setAuthMode] = useState("login");
+  const { user, login, signup, logout, applyToJob } = useAuth();
   const [showModal, setShowModal] = useState(false);
   const [showTracker, setShowTracker] = useState(false);
   const handleApply = (job) => {
     if (!user) {
+      setAuthMode("login");
       setShowModal(true);
       return;
     }
@@ -44,7 +48,7 @@ function App() {
   const handleNavigate = (section) => {
     setActiveSection(section);
     sectionsRef[section].current?.scrollIntoView({
-      behaviour: "smooth",
+      behavior: "smooth",
       block: "start",
     });
   }
@@ -59,7 +63,10 @@ function App() {
   }, [isWhiteTheme])
   return (
     <>
-      <Header onNavigate={handleNavigate} isWhiteTheme={isWhiteTheme} setIsWhiteTheme={setIsWhiteTheme} user={user} logout={logout} onOpenTracker={() => setShowTracker(true)} />
+      <Header onNavigate={handleNavigate} isWhiteTheme={isWhiteTheme} setIsWhiteTheme={setIsWhiteTheme} user={user} logout={logout} onOpenTracker={() => setShowTracker(true)} onLoginClick={() => {
+        setAuthMode("login");
+        setShowModal(true);
+      }} onSignupClick={() => { setAuthMode("signup"); setShowAuthModal(true); }} />
       <main>
         <Hero />
         <div className='job-sections-container'>
@@ -67,6 +74,14 @@ function App() {
         </div>
         {showTracker && (
           <Tracker user={user} onClose={() => setShowTracker(false)} />
+        )}
+        {showAuthModal && (
+          <div className='modal-overlay'>
+            <div className='modal'>
+              <h2>{authMode === "login" ? "Login" : "Signup"}</h2>
+              <AuthForm authMode={authMode} login={login} signup={signup} onClose={() => setShowAuthModal(false)} />
+            </div>
+          </div>
         )}
       </main>
       <Footer isWhiteTheme={isWhiteTheme} />

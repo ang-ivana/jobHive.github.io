@@ -466,3 +466,7 @@ main .hero-content .search-wrapper .popup .popup-date p {
 .job-sections-container .show-btn span {
   color: #F3A257;
 }
+
+.tracker {
+  display: none;
+}
