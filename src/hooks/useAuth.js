@@ -74,6 +74,24 @@ export function useAuth() {
     return true;
 
   };
-  return { user, login, signup, logout, applyToJob };
+  const removeJob = (jobId) => {
+    if (!user) return;
+    const data = JSON.parse(localStorage.getItem("users"));
+    const updatedUsers = data.users.map(u => {
+      if (u.email === user.email) {
+        return {
+          ...u,
+          appliedJobs: u.appliedJobs.filter(job => job.id !== jobId)
+        };
+      }
+      return u;
+    });
+    const updateData = { users: updatedUsers };
+    localStorage.setItem("users", JSON.stringify(updateData));
+    const updatedUser = updatedUsers.find(u => u.email === user.email);
+    localStorage.setItem("currentUser", JSON.stringify(updatedUser));
+    setUser(updatedUser);
+  }
+  return { user, login, signup, logout, applyToJob, removeJob };
 
 }

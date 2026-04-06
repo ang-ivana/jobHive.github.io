@@ -10,7 +10,7 @@ import AuthForm from './components/AuthForm';
 function App() {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authMode, setAuthMode] = useState("login");
-  const { user, login, signup, logout, applyToJob } = useAuth();
+  const { user, login, signup, logout, applyToJob, removeJob } = useAuth();
   const [showTracker, setShowTracker] = useState(false);
   const handleApply = (job) => {
     if (!user) {
@@ -39,7 +39,16 @@ function App() {
       localStorage.setItem("users", JSON.stringify(initialData));
     }
   }, []);
-
+  useEffect(() => {
+    if (showAuthModal || showTracker) {
+      document.body.classList.add("modal-open");
+    } else {
+      document.body.classList.remove("modal-open");
+    }
+    return () => {
+      document.body.classList.remove("modal-open");
+    };
+  }, [showAuthModal, showTracker]);
   useEffect(() => {
     if (user) {
       document.body.classList.add("logged-in");
@@ -78,12 +87,12 @@ function App() {
           setShowAuthModal(true);
         }} onSignupClick={() => { setAuthMode("signup"); setShowAuthModal(true); }} />
       <main>
-        <Hero />
+        <Hero onApply={handleApply} />
         <div className='job-sections-container'>
           <JobsContainer activeSection={activeSection} setActiveSection={setActiveSection} sectionsRef={sectionsRef} onApply={handleApply} />
         </div>
         {showTracker && (
-          <Tracker user={user} onClose={() => setShowTracker(false)} />
+          <Tracker user={user} onClose={() => setShowTracker(false)} onRemove={removeJob} />
         )}
         {showAuthModal && (
           <div className='modal-overlay main-padding'>

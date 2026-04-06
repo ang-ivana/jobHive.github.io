@@ -1,5 +1,5 @@
 import Button from "./Button";
-export default function Tracker({ user, onClose }) {
+export default function Tracker({ user, onClose, onRemove }) {
   if (!user) return null;
   const jobs = user?.appliedJobs || [];
   console.log(user)
@@ -15,9 +15,12 @@ export default function Tracker({ user, onClose }) {
             <h3>{job.title}</h3>
             <span>{job.company}</span>
             <p>Applied on:{""} {new Date(job.appliedAt).toLocaleDateString()}</p>
+            <Button text="Remove" variant="secondary" onClick={() => { onRemove(job.id) }} />
           </div>
         ))}
-        <Button variant="secondary" onClick={onClose} text={"Close"} />
+
+        <Button variant="close-btn secondary" onClick={onClose} text={"Close"} />
+
       </div>
     </div>
   );

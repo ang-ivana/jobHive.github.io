@@ -2,7 +2,7 @@ import heroImg1 from "../assets/images/hero-1.png";
 import heroImg2 from "../assets/images/hero-2.png";
 import SearchBar from "./SearchBar";
 
-export default function Hero() {
+export default function Hero({ onApply }) {
   return (
     <section className="hero main-padding">
       <div className="hero-content">
@@ -22,7 +22,7 @@ export default function Hero() {
         <div className="title-container">
           <h1>Discover your next Hive</h1>
           <div className="hero-search">
-            <SearchBar />
+            <SearchBar onApply={onApply} />
           </div>
         </div>
       </div>

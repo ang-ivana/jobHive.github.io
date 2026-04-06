@@ -417,13 +417,28 @@ main {
 
           &-content {
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
             gap: 10px;
+            position: relative;
+
+            .apply-btn {
+              margin: 0;
+              cursor: not-allowed;
+              opacity: .5;
+              pointer-events: none;
+              border-color: #dedede;
+
+              span {
+                background-color: #dedede;
+
+              }
+            }
           }
 
           h2 {
             color: $color-black;
             margin-bottom: 5px;
+            width: 100%;
           }
 
           span {
@@ -431,6 +446,7 @@ main {
             display: flex;
             gap: 10px;
             font-size: 20px;
+            width: 100%;
           }
 
           p {
@@ -505,7 +521,10 @@ main {
 
 .prev,
 .next {
+  cursor: pointer;
+
   img {
+    cursor: pointer;
     filter: brightness(0) saturate(100%) invert(93%) sepia(69%) saturate(1271%) hue-rotate(304deg) brightness(102%) contrast(101%);
   }
 }
@@ -640,6 +659,32 @@ main {
     }
   }
 
+  main {
+    .hero-content {
+      .search-wrapper {
+        .popup-content {
+          .apply-btn {
+            cursor: pointer;
+            pointer-events: all;
+            border-color: $color-dark-orange;
+            opacity: 1;
+
+            span {
+              &:first-of-type {
+                background-color: $color-dark-orange;
+              }
+
+              &:last-of-type {
+                background-color: transparent;
+              }
+            }
+
+          }
+        }
+      }
+    }
+  }
+
   .profile {
     display: flex;
     flex-direction: row-reverse;
@@ -667,16 +712,54 @@ main {
   top: 0;
   background-color: $color-black;
   padding-top: 30px;
+  padding-bottom: 30px;
+  overflow-y: auto;
 
   .popup-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    .popup-card {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      padding: 10px;
+      padding-left: 0;
+      align-items: flex-start;
+      width: 100%;
+
+      &:not(:last-of-type) {
+        border-bottom: 2px solid $color-dark-orange;
+        padding-bottom: 30px;
+
+      }
+
+      h3 {
+        font-weight: 600;
+        padding-bottom: 5px;
+        border-bottom: 1px solid $color-light-orange;
+      }
+    }
+
     h2 {
       margin-bottom: 30px;
+      width: 100%;
     }
 
     .btn {
       margin-top: 15px;
     }
 
+    .close-btn {
+      margin-left: auto;
+      width: fit-content;
+    }
   }
 
+}
+
+.modal-open {
+  overflow: hidden;
 }

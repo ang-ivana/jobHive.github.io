@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Button from "./Button";
 
-export default function SearchBar() {
+export default function SearchBar({ onApply }) {
   const [jobs, setJobs] = useState([]);
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
@@ -11,7 +11,6 @@ export default function SearchBar() {
     fetch("/data/jobs.json").then(res => res.json()).then(data => {
       const allJobs = Object.values(data).flat();
       setJobs(allJobs);
-      console.log(allJobs);
     });
   }, [])
 
@@ -54,6 +53,7 @@ export default function SearchBar() {
             <span>location | <p>{selected.location}</p></span>
             <span>salary | <p>{selected.salary}</p></span>
             <span className="popup-date">posted | <p>{selected.date}</p></span>
+            <Button text="Apply" variant="apply-btn primary" onClick={() => { onApply && onApply(selected); setSelected(null) }} />
             <Button text="close" variant="secondary" onClick={() => setSelected(null)} />
           </div>
         </div>

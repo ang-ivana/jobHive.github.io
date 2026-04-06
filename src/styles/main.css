@@ -375,18 +375,31 @@ main .hero-content .search-wrapper .popup {
 }
 main .hero-content .search-wrapper .popup-content {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 10px;
+  position: relative;
+}
+main .hero-content .search-wrapper .popup-content .apply-btn {
+  margin: 0;
+  cursor: not-allowed;
+  opacity: 0.5;
+  pointer-events: none;
+  border-color: #dedede;
+}
+main .hero-content .search-wrapper .popup-content .apply-btn span {
+  background-color: #dedede;
 }
 main .hero-content .search-wrapper .popup h2 {
   color: #0A171D;
   margin-bottom: 5px;
+  width: 100%;
 }
 main .hero-content .search-wrapper .popup span {
   color: #0A171D;
   display: flex;
   gap: 10px;
   font-size: 20px;
+  width: 100%;
 }
 main .hero-content .search-wrapper .popup p {
   color: #0A171D;
@@ -438,8 +451,13 @@ main .hero-content .search-wrapper .popup .popup-date p {
   margin-top: 30px;
 }
 
+.prev,
+.next {
+  cursor: pointer;
+}
 .prev img,
 .next img {
+  cursor: pointer;
   filter: brightness(0) saturate(100%) invert(93%) sepia(69%) saturate(1271%) hue-rotate(304deg) brightness(102%) contrast(101%);
 }
 
@@ -542,6 +560,18 @@ main .hero-content .search-wrapper .popup .popup-date p {
 .logged-in .job-section .slider .jobs-card .btn span:last-of-type {
   background-color: transparent;
 }
+.logged-in main .hero-content .search-wrapper .popup-content .apply-btn {
+  cursor: pointer;
+  pointer-events: all;
+  border-color: #F3A257;
+  opacity: 1;
+}
+.logged-in main .hero-content .search-wrapper .popup-content .apply-btn span:first-of-type {
+  background-color: #F3A257;
+}
+.logged-in main .hero-content .search-wrapper .popup-content .apply-btn span:last-of-type {
+  background-color: transparent;
+}
 .logged-in .profile {
   display: flex;
   flex-direction: row-reverse;
@@ -566,10 +596,45 @@ main .hero-content .search-wrapper .popup .popup-date p {
   top: 0;
   background-color: #0A171D;
   padding-top: 30px;
+  padding-bottom: 30px;
+  overflow-y: auto;
+}
+.popup-tracker .popup-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.popup-tracker .popup-content .popup-card {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px;
+  padding-left: 0;
+  align-items: flex-start;
+  width: 100%;
+}
+.popup-tracker .popup-content .popup-card:not(:last-of-type) {
+  border-bottom: 2px solid #F3A257;
+  padding-bottom: 30px;
+}
+.popup-tracker .popup-content .popup-card h3 {
+  font-weight: 600;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #FFBD77;
 }
 .popup-tracker .popup-content h2 {
   margin-bottom: 30px;
+  width: 100%;
 }
 .popup-tracker .popup-content .btn {
   margin-top: 15px;
+}
+.popup-tracker .popup-content .close-btn {
+  margin-left: auto;
+  width: fit-content;
+}
+
+.modal-open {
+  overflow: hidden;
 }
