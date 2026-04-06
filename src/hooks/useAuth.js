@@ -5,20 +5,27 @@ export function useAuth() {
     const storedUser = JSON.parse(localStorage.getItem("currentUser"));
     if (storedUser) setUser(storedUser);
   }, []);
-  const login = (email, password) => {
+  const getUsersData = () => {
     const data = JSON.parse(localStorage.getItem("users"));
-    const found = data.users.find(
-      u => u.email === email && u.password === password);
-    if (found) {
-      setUser(found);
-      localStorage.setItem("currentUser", JSON.stringify(found));
-      return true;
+    if (!data || !data.users) {
+      return { users: [] };
     }
-    return false;
+    return data;
+  }
+
+  const login = (email, password) => {
+    const data = getUsersData();
+    const found = data.users.find(
+      (u) => u.email === email && u.password === password);
+    if (!found) return false;
+    setUser(found);
+    localStorage.setItem("currentUser", JSON.stringify(found));
+    return true;
   };
+
   const signup = (newUser) => {
-    const data = JSON.parse(localStorage.getItem("users"));
-    const exists = data.users.find(u => u.email === newUser.email);
+    const data = getUsersData();
+    const exists = data.users.find((u) => u.email === newUser.email);
     if (exists) return false;
     const userWithJobs = {
       ...newUser,
@@ -39,8 +46,8 @@ export function useAuth() {
   };
   const applyToJob = (job) => {
     if (!user) return false;
-    const data = JSON.parse(localStorage.getItem("users"));
-    const updatedUsers = data.users.map(u => {
+    const data = getUsersData();
+    const updatedUsers = data.users.map((u) => {
       if (u.email === user.email) {
         if (u.appliedJobs.some(j => j.id === job.id)) {
           alert("Already applied!");
@@ -61,7 +68,7 @@ export function useAuth() {
     });
     const updateData = { users: updatedUsers };
     localStorage.setItem("users", JSON.stringify(updateData));
-    const updatedUser = updatedUsers.find(u => u.email === user.email);
+    const updatedUser = updatedUsers.find((u) => u.email === user.email);
     localStorage.setItem("currentUser", JSON.stringify(updatedUser));
     setUser(updatedUser);
     return true;

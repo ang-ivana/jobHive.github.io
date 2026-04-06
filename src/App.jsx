@@ -11,12 +11,11 @@ function App() {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authMode, setAuthMode] = useState("login");
   const { user, login, signup, logout, applyToJob } = useAuth();
-  const [showModal, setShowModal] = useState(false);
   const [showTracker, setShowTracker] = useState(false);
   const handleApply = (job) => {
     if (!user) {
       setAuthMode("login");
-      setShowModal(true);
+      setShowAuthModal(true);
       return;
     }
     applyToJob(job);
@@ -31,6 +30,7 @@ function App() {
             email: "john@doe.com",
             password: "123",
             fullName: "John Doe",
+            jobDescription: "Frontend Dev",
             appliedJobs: []
           }
         ]
@@ -39,6 +39,15 @@ function App() {
       localStorage.setItem("users", JSON.stringify(initialData));
     }
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      document.body.classList.add("logged-in");
+    } else {
+      document.body.classList.remove("logged-in");
+    }
+  }, [user]);
+
   const [activeSection, setActiveSection] = useState(null);
   const sectionsRef = {
     remote: useRef(null),
@@ -63,10 +72,11 @@ function App() {
   }, [isWhiteTheme])
   return (
     <>
-      <Header onNavigate={handleNavigate} isWhiteTheme={isWhiteTheme} setIsWhiteTheme={setIsWhiteTheme} user={user} logout={logout} onOpenTracker={() => setShowTracker(true)} onLoginClick={() => {
-        setAuthMode("login");
-        setShowModal(true);
-      }} onSignupClick={() => { setAuthMode("signup"); setShowAuthModal(true); }} />
+      <Header onNavigate={handleNavigate} isWhiteTheme={isWhiteTheme} setIsWhiteTheme={setIsWhiteTheme} user={user} logout={logout} onOpenTracker={() => setShowTracker(true)}
+        onLoginClick={() => {
+          setAuthMode("login");
+          setShowAuthModal(true);
+        }} onSignupClick={() => { setAuthMode("signup"); setShowAuthModal(true); }} />
       <main>
         <Hero />
         <div className='job-sections-container'>
@@ -76,7 +86,7 @@ function App() {
           <Tracker user={user} onClose={() => setShowTracker(false)} />
         )}
         {showAuthModal && (
-          <div className='modal-overlay'>
+          <div className='modal-overlay main-padding'>
             <div className='modal'>
               <h2>{authMode === "login" ? "Login" : "Signup"}</h2>
               <AuthForm authMode={authMode} login={login} signup={signup} onClose={() => setShowAuthModal(false)} />

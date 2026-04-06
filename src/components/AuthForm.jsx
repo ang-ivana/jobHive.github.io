@@ -1,7 +1,6 @@
 import { useState } from "react";
 export default function AuthForm({ authMode, login, signup, onClose }) {
   const [formData, setFormData] = useState({
-
     fullName: "",
     email: "",
     password: "",
@@ -19,14 +18,17 @@ export default function AuthForm({ authMode, login, signup, onClose }) {
     let success;
     if (authMode === "login") {
       success = login(formData.email, formData.password);
+      if (!success) {
+        alert("Invalid email or password!");
+        return;
+      }
     } else {
       success = signup(formData);
+      if (!success) {
+        alert("User already exists");
+        return;
+      }
     }
-    if (!success) {
-      alert("Something went wrong, try again!");
-      return;
-    }
-
     onClose();
   }
   return (

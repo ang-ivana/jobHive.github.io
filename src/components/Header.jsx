@@ -111,13 +111,11 @@ export default function Header({ isWhiteTheme, setIsWhiteTheme, onNavigate, onOp
         )}
         {user && (
           <div className="profile">
-            <div className="profile-trigger" onClick={() => setShowProfileMenu(prev => !prev)}>
+            <div className="profile-trigger">
               <span>{user.fullName}</span>
               <p>{user.jobDescription}</p>
             </div>
-            {showProfileMenu && (
-              <Button variant="secondary" text="logout" onClick={logout} />
-            )}
+            <Button variant="secondary" text="logout" onClick={logout} />
           </div>
         )}
       </div>

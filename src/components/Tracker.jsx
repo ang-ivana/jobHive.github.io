@@ -1,9 +1,10 @@
 import Button from "./Button";
 export default function Tracker({ user, onClose }) {
-  const jobs = user?.appliedJobs || [];
   if (!user) return null;
+  const jobs = user?.appliedJobs || [];
+  console.log(user)
   return (
-    <div className="popup">
+    <div className="popup main-padding popup-tracker">
       <div className="popup-content">
         <h2>Applied Jobs</h2>
         {jobs.length === 0 && (
