@@ -7,9 +7,11 @@ import { useAuth } from './hooks/useAuth';
 import Tracker from './components/Tracker';
 import { useEffect, useState, useRef } from 'react'
 import AuthForm from './components/AuthForm';
+import ChangePasswordModal from './components/ChangePasswordModal';
 function App() {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authMode, setAuthMode] = useState("login");
+  const [showChangePassword, setShowChangePassword] = useState(false);
   const { user, login, signup, logout, applyToJob, removeJob } = useAuth();
   const [showTracker, setShowTracker] = useState(false);
   const handleApply = (job) => {
@@ -40,7 +42,7 @@ function App() {
     }
   }, []);
   useEffect(() => {
-    if (showAuthModal || showTracker) {
+    if (showAuthModal || showTracker || showChangePassword) {
       document.body.classList.add("modal-open");
     } else {
       document.body.classList.remove("modal-open");
@@ -48,7 +50,7 @@ function App() {
     return () => {
       document.body.classList.remove("modal-open");
     };
-  }, [showAuthModal, showTracker]);
+  }, [showAuthModal, showTracker, showChangePassword]);
   useEffect(() => {
     if (user) {
       document.body.classList.add("logged-in");
@@ -56,7 +58,16 @@ function App() {
       document.body.classList.remove("logged-in");
     }
   }, [user]);
+  useEffect(() => {
+    const handler = () => {
+      setShowChangePassword(true);
+    }
+    window.addEventListener("openChangePassword", handler);
+    return () => {
+      window.removeEventListener("openChangePassword", handler);
+    };
 
+  }, [])
   const [activeSection, setActiveSection] = useState(null);
   const sectionsRef = {
     remote: useRef(null),
@@ -101,6 +112,9 @@ function App() {
               <AuthForm authMode={authMode} login={login} signup={signup} onClose={() => setShowAuthModal(false)} />
             </div>
           </div>
+        )}
+        {showChangePassword && (
+          <ChangePasswordModal onClose={() => setShowChangePassword(false)} />
         )}
       </main>
       <Footer isWhiteTheme={isWhiteTheme} />

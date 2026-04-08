@@ -314,7 +314,7 @@ main {
 
         img {
           background-color: $color-black;
-          width: 50%;
+          width: calc(50% - 30px);
           height: auto;
         }
       }
@@ -762,4 +762,20 @@ main {
 
 .modal-open {
   overflow: hidden;
+}
+
+.change-pass {
+  border: 0 !important;
+  width: fit-content;
+  opacity: .7;
+  min-width: fit-content;
+  margin-top: -10px;
+  display: block;
+  transition: all .5s ease-in;
+
+  &:hover {
+    opacity: 1;
+    text-decoration: underline;
+    transition: all .5s ease-in;
+  }
 }

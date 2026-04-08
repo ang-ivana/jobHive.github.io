@@ -38,11 +38,16 @@ export default function AuthForm({ authMode, login, signup, onClose }) {
       )}
       <input name="email" placeholder="Email" onChange={handleChange} required />
       <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
+      {authMode === "login" && (
+        <button className="btn secondary-btn change-pass" type="button" onClick={() => { onClose(); window.dispatchEvent(new Event("openChangePassword")) }}>
+          Change Password</button>
+      )}
       {authMode === "signup" && (
         <input name="jobDescription" placeholder="Job Description" onChange={handleChange} required />
       )}
       <button type="submit" className="btn primary-btn">{authMode === "login" ? "Login" : "Signup"}</button>
       <button type="button" className="btn secondary-btn" onClick={onClose}>Close</button>
+
     </form>
   )
 }
