@@ -8,11 +8,13 @@ export default function SearchBar({ onApply }) {
   const [selected, setSelected] = useState(null);
 
   useEffect(() => {
-    fetch("/data/jobs.json").then(res => res.json()).then(data => {
-      const allJobs = Object.values(data).flat();
-      setJobs(allJobs);
-    });
-  }, [])
+    fetch(`${import.meta.env.BASE_URL}data/jobs.json`)
+      .then(res => res.json())
+      .then(data => {
+        const allJobs = Object.values(data).flat();
+        setJobs(allJobs);
+      });
+  }, []);
 
 
 
