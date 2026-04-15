@@ -1,5 +1,5 @@
-import heroImg1 from "src/assets/images/hero-1.png";
-import heroImg2 from "src/assets/images/hero-2.png";
+import heroImg1 from "../assets/images/hero-1.png";
+import heroImg2 from "../assets/images/hero-2.png";
 import SearchBar from "./SearchBar";
 
 export default function Hero({ onApply }) {
